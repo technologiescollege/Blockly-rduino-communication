@@ -16,14 +16,14 @@
   <Labels>
     <Popup type="TComboBox">
       <Items>
-        <FR>Le fichier scratch2.bat n'existe pas.\Le fichier scratch2.bat n'existe pas.\Le fichier s2aio_cmd.bat n'existe pas.\Le numéro du port COM doit être un entier.\Interface réalisée par Sébastien Canet, décembre 2015 - v1.7 - janvier 2016\Carte Arduino mal connectée ou non reconnue,\vérifiez dans le gestionnaire de périphériques,\accessible depuis le menu 'Outils'.</FR>
-        <EN>The file 'scratch2.bat' does not exist.\The file 'scratch2.bat' does not exist.\The file 's2aio_cmd.bat' does not exist.\#COM port must be an integer.\Software created by Sébastien Canet, december 2015 - v1.7 - january 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.</EN>
-		<ES>El fichero 'scratch2.bat'no existe.\El fichero 'scratch2.bat' no existe.\El fichero 's2aio_cmd.bat' no existe.\El número de puerto #COM debe ser un entero.\Software creado por Sébastien Canet, diciembre 2015 - v1.7 - junio 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.</ES>
+        <FR>Le fichier 'pymata_cmd.bat' n'existe pas.\Le fichier 'flash.bat' n'existe pas.\Le fichier 'rDuino_uploader.bat' n'existe pas.\Le numéro du port COM doit être un entier.\Interface réalisée par Sébastien Canet, mai 2016 - v1.0 - juin 2016\Carte Arduino mal connectée ou non reconnue,\vérifiez dans le gestionnaire de périphériques,\accessible depuis le menu 'Outils'.</FR>
+        <EN>The file 'pymata_cmd.bat' does not exist.\The file 'flash.bat' does not exist.\The file 'rDuino_uploader.bat' does not exist.\#COM port must be an integer.\Software created by Sébastien Canet, may 2016 - v1.0 - june 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.</EN>
+		<ES>El fichero 'pymata_cmd.bat'no existe.\El fichero 'flash.bat' no existe.\El fichero 'rDuino_uploader.bat' no existe.\El número de puerto #COM debe ser un entero.\Software creado por Sébastien Canet, mayo 2016 - v1.0 - junio 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.</ES>
       </Items>
     </Popup>
     <InterfaceS2A type="TFenetrePrincipale">
       <Caption>
-        <FR>Panneau de contrôle Blockly@rduino</FR>
+        <FR>Blockly@rduino - communication</FR>
         <EN>Blockly@rduino control panel</EN>
         <ES>Blockly@rduino panel de control</ES>
       </Caption>
@@ -135,7 +135,7 @@
 					</Drivers>
 			<Init type="TMenuItem">
 			  <Caption>
-				<FR>Réinitialiser les p&aramètres</FR>
+				<FR>(Ré)initialiser les p&aramètres</FR>
 				<EN>Initialise p&arameters</EN>
 				<ES>Inicializar los p&arametros</ES>
 			  </Caption>
