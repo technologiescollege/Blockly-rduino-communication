@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="static/style.css">
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+<script type=text/javascript>
+var timer1 = null
+var timer2 = null
+
+function updateResult() {
+  $.getJSON('/get_result', function(data) {
+//        $("#section_result").text("toto " + data.result);
+        document.getElementById('section_result').innerHTML = "Date : " + data.date + "<br/>Heure de la dernière exécution : " + data.compileTime +  "<br/><br/>Resultat : " + data.result;
+        
+        //document.getElementById('section_indicator').innerHTML = data.returnCode;
+        
+        if (data.returnCode <= -1) {
+            document.body.style.backgroundColor = '#CC3300';
+            document.getElementById("section_indicator").style.backgroundColor = "red";
+        }
+        else {
+            if (data.returnCode >= 1) {
+                document.body.style.backgroundColor = '#336600';
+                document.getElementById("section_indicator").style.backgroundColor = "green";
+            }
+            else {
+                document.body.style.backgroundColor = 'gray';
+                document.getElementById("section_indicator").style.backgroundColor = "black";
+            }
+        }
+    });
+}
+function updateError() {
+  $.getJSON('/get_error', function(data){
+        document.getElementById('section_error').innerHTML = "Message d'erreur : " + data.error
+//        $("#section_error").text("Message d'erreur :<br/><br/> " + data.error);
+  })
+}
+  
+timer1 = setInterval('updateResult()', 1000 * 1);
+timer2 = setInterval('updateError()', 1000 * 1);
+</script>
+
+</head>
+<body>
+
+<div class="header">
+<h1>rDuino Compiler Uploader Server</h1>
+Send an HTTP request, including the code, to http://127.0.0.1:{{ thePort }}/ to compile and upload a code to the Arduino target.
+</div>
+
+<div class="row">
+
+<!--  NO MENU
+<div class="col-3 col-s-3 menu" id="buttonList">
+<ul>
+    <a href="{{ url_for("install_board") }}" id="install_board"><li>Add a board to the compiler</li></a>
+    <a href="{{ url_for("install_library") }}" id="install_library"><li>Add a library to the compiler</li></a>
+</ul>
+</div>
+-->
+
+<!--    return render_template('main.html', theBoardList=boardList, theBoard=myBoard, theTargetList=targetList, theTarget=myTarget, theTempFile=myTempDirectory+separator+myFileName) -->
+
+<div class="col-9 col-s-9">
+<h1>The board</h1>
+<div class="section">
+
+<form action="{{url_for("set_board")}}" method="POST">
+Available boards:<select name="board" id="board" onchange="this.form.submit()">
+  {% for board in theBoardList %}
+    {% if board == theBoard %}
+        <option value="{{board}}" selected>{{board}}</option>
+    {% else %}
+        <option value="{{board}}">{{board}}</option>
+    {% endif %}
+  {% endfor %}  
+</select>
+</form>
+The selected board type : {{ theBoard }}
+</div>
+
+<h1>The target port</h1>
+<div class="section">
+<form action="{{url_for("set_target")}}" method="POST">
+<select name="target" id="target" onchange="this.form.submit()">
+  {% for target in theTargetList %}
+    {% if target == theTarget %}
+        <option value="{{target}}" selected>{{target}}</option>
+    {% else %}
+        <option value="{{target}}">{{target}}</option>
+    {% endif %}
+  {% endfor %}  
+</select>
+</form>
+The selected port to communicate with the target : {{ theTarget }}
+</div>
+
+<h1>The options</h1>
+<div class="section">
+<form action="{{url_for("set_option")}}" method="POST">
+<select name="option" id="option" onchange="this.form.submit()">
+  {% for option in theOptionList %}
+    {% if option == theOption%}
+        <option value="{{option}}" selected>{{option}}</option>
+    {% else %}
+        <option value="{{option}}">{{option}}</option>
+    {% endif %}
+  {% endfor %}  
+</select>
+</form>
+The selected options : {{ theOption }}
+</div>
+
+
+<h1>The temporary file containg the code</h1>
+<div class="section">{{ theTempFile }}</div>
+
+<h1>The result of the last command</h1>
+<div class="section_result"><span id=section_result>{{ result|safe }}</span></div>
+<div class="section_error"><span id=section_error>{{ error|safe }}</span></div>
+<div class="section_indicator" id=section_indicator></div>
+</div>
+
+</div>
+
+<div class="footer">
+<p>(c) NBRemond - 2016</p>
+</div>
+
+</body>
+</html>
