@@ -51,9 +51,9 @@
     </Label3>
     <rDuino type="TButton">
       <Caption>
-        <FR>Lancer rDuino</FR>
-        <EN>Launch rDuino</EN>
-        <ES>Lanzar rDuino</ES>
+        <FR>Attendre le code</FR>
+        <EN>Wait for sketch</EN>
+        <ES>Esperar sketch</ES>
       </Caption>
     </rDuino>
     <rDuino_visu type="TButton">
@@ -65,9 +65,9 @@
     </rDuino_visu>
     <pymata type="TButton">
       <Caption>
-        <FR>Lancer PyMata-aio</FR>
-        <EN>Launch PyMata-aio</EN>
-        <ES>Lanzar PyMata-aio</ES>
+        <FR>Lancer la communication</FR>
+        <EN>Launch communication</EN>
+        <ES>Lanzar communicacion</ES>
       </Caption>
     </pymata>
     <blockly_launch type="TButton">
