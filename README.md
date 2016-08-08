@@ -1,9 +1,17 @@
-# Blockly-rduino-communication
-Python server to communicate with Blockly@rduino : supervision, upload to Arduino card, transfer code to IDE Arduino.
+# Blockly@rduino-communication
+Python server to communicate with Blockly@rduino : supervision of PIN, upload to Arduino card, transfer code to IDE Arduino.
 
 Sorry but only for Windows...
 
-How it works and what it does :
+How supervision works and what it does :
 -------------------------------
-<iframe src="https://player.vimeo.com/video/177939950?byline=0&portrait=0" width="640" height="512" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/177939950">BlocklyArduino communication : supervision</a></p>
+Click on picture to see video :
+
+[![](https://github.com/technologiescollege/Blockly-rduino-communication/blob/master/documentation/Blockly_comm_capture.jpg?raw=true)
+](https://vimeo.com/177939950)
+
+How upload offline works and what it does :
+-------------------------------
+Click on picture to see video :
+
+*not yet completed...*
