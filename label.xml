@@ -16,9 +16,9 @@
   <Labels>
     <Popup type="TComboBox">
       <Items>
-        <FR>Le fichier 'pymata_cmd.bat' n'existe pas.\Le fichier 'flash.bat' n'existe pas.\Le fichier 'rDuino_uploader.bat' n'existe pas.\Le numéro du port COM doit être un entier.\Interface réalisée par Sébastien Canet, mai 2016 - v1.0 - juin 2016\Carte Arduino mal connectée ou non reconnue,\vérifiez dans le gestionnaire de périphériques,\accessible depuis le menu 'Outils'.</FR>
-        <EN>The file 'pymata_cmd.bat' does not exist.\The file 'flash.bat' does not exist.\The file 'rDuino_uploader.bat' does not exist.\#COM port must be an integer.\Software created by Sébastien Canet, may 2016 - v1.0 - june 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.</EN>
-		<ES>El fichero 'pymata_cmd.bat'no existe.\El fichero 'flash.bat' no existe.\El fichero 'rDuino_uploader.bat' no existe.\El número de puerto #COM debe ser un entero.\Software creado por Sébastien Canet, mayo 2016 - v1.0 - junio 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.</ES>
+        <FR>Le fichier 'pymata_cmd.bat' n'existe pas.\Le fichier 'flash.bat' n'existe pas.\Le fichier 'rDuino_uploader.bat' n'existe pas.\Le numéro du port COM doit être un entier.\Interface réalisée par Sébastien Canet, mai 2016 - v1.1 - août 2016\Carte Arduino mal connectée ou non reconnue,\vérifiez dans le gestionnaire de périphériques,\accessible depuis le menu 'Outils'.\Veuillez localiser l'EDI Arduino.</FR>
+        <EN>The file 'pymata_cmd.bat' does not exist.\The file 'flash.bat' does not exist.\The file 'rDuino_uploader.bat' does not exist.\#COM port must be an integer.\Software created by Sébastien Canet, may 2016 - v1.1 - august 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</EN>
+		<ES>El fichero 'pymata_cmd.bat'no existe.\El fichero 'flash.bat' no existe.\El fichero 'rDuino_uploader.bat' no existe.\El número de puerto #COM debe ser un entero.\Software creado por Sébastien Canet, mayo 2016 - v1.1 - augusto 2016\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</ES>
       </Items>
     </Popup>
     <InterfaceS2A type="TFenetrePrincipale">

@@ -12,7 +12,7 @@
 
 # Change the next 3 lines to suit where you install your script and what you want to call it
 DIR=/root/rDuino_Compiler_Uploader_Server
-DAEMON=$DIR/run_server.py
+DAEMON=$DIR/rDuino_uploader_server.py
 DAEMON_NAME=rDuino_Compiler_Uploader_Server
 
 # Add any command line options for your daemon here

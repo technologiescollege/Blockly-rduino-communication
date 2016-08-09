@@ -1,15 +1,15 @@
 #!/usr/bin/env python
+
+# portable serial port access with python
 #
 # This is a module that gathers a list of serial ports including details on OSX
 #
 # code originally from https://github.com/makerbot/pyserial/tree/master/serial/tools
 # with contributions from cibomahto, dgs3, FarMcKon, tedbrandston
-# and modifications by cliechti, hoihu, hardkrash
+# and modifications by cliechti
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2013-2015
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# this is distributed under a free software license, see license.txt
+
 
 
 # List all of the callout devices in OS/X by querying IOKit.
@@ -22,9 +22,8 @@
 # Also see the 'IORegistryExplorer' for an idea of what we are actually searching
 
 import ctypes
-import ctypes.util
-
-from serial.tools import list_ports_common
+from ctypes import util
+import re
 
 iokit = ctypes.cdll.LoadLibrary(ctypes.util.find_library('IOKit'))
 cf = ctypes.cdll.LoadLibrary(ctypes.util.find_library('CoreFoundation'))
@@ -65,82 +64,68 @@ cf.CFStringGetCStringPtr.restype = ctypes.c_char_p
 cf.CFNumberGetValue.argtypes = [ctypes.c_void_p, ctypes.c_uint32, ctypes.c_void_p]
 cf.CFNumberGetValue.restype = ctypes.c_void_p
 
-# void CFRelease ( CFTypeRef cf );
-cf.CFRelease.argtypes = [ctypes.c_void_p]
-cf.CFRelease.restype = None
+def get_string_property(device_t, property):
+    """ Search the given device for the specified string property
 
-# CFNumber type defines
-kCFNumberSInt8Type = 1
-kCFNumberSInt16Type = 2
-kCFNumberSInt32Type = 3
-kCFNumberSInt64Type = 4
-
-
-def get_string_property(device_type, property):
-    """
-    Search the given device for the specified string property
-
-    @param device_type Type of Device
-    @param property String to search for
+    @param device_t Device to search
+    @param property String to search for.
     @return Python string containing the value, or None if not found.
     """
     key = cf.CFStringCreateWithCString(
-            kCFAllocatorDefault,
-            property.encode("mac_roman"),
-            kCFStringEncodingMacRoman)
+        kCFAllocatorDefault,
+        property.encode("mac_roman"),
+        kCFStringEncodingMacRoman
+    )
 
     CFContainer = iokit.IORegistryEntryCreateCFProperty(
-            device_type,
-            key,
-            kCFAllocatorDefault,
-            0)
+        device_t,
+        key,
+        kCFAllocatorDefault,
+        0
+    );
+
     output = None
 
     if CFContainer:
         output = cf.CFStringGetCStringPtr(CFContainer, 0)
-        if output is not None:
-            output = output.decode('mac_roman')
-        cf.CFRelease(CFContainer)
+
     return output
 
+def get_int_property(device_t, property):
+    """ Search the given device for the specified string property
 
-def get_int_property(device_type, property, cf_number_type):
-    """
-    Search the given device for the specified string property
-
-    @param device_type Device to search
-    @param property String to search for
-    @param cf_number_type CFType number
-
+    @param device_t Device to search
+    @param property String to search for.
     @return Python string containing the value, or None if not found.
     """
     key = cf.CFStringCreateWithCString(
-            kCFAllocatorDefault,
-            property.encode("mac_roman"),
-            kCFStringEncodingMacRoman)
+        kCFAllocatorDefault,
+        property.encode("mac_roman"),
+        kCFStringEncodingMacRoman
+    )
 
     CFContainer = iokit.IORegistryEntryCreateCFProperty(
-            device_type,
-            key,
-            kCFAllocatorDefault,
-            0)
+        device_t,
+        key,
+        kCFAllocatorDefault,
+        0
+    );
+
+    number = ctypes.c_uint16()
 
     if CFContainer:
-        if (cf_number_type == kCFNumberSInt32Type):
-            number = ctypes.c_uint32()
-        elif (cf_number_type == kCFNumberSInt16Type):
-            number = ctypes.c_uint16()
-        cf.CFNumberGetValue(CFContainer, cf_number_type, ctypes.byref(number))
-        cf.CFRelease(CFContainer)
-        return number.value
-    return None
+        output = cf.CFNumberGetValue(CFContainer, 2, ctypes.byref(number))
 
+    return number.value
 
 def IORegistryEntryGetName(device):
-    pathname = ctypes.create_string_buffer(100)  # TODO: Is this ok?
-    iokit.IOObjectGetClass(device, ctypes.byref(pathname))
-    return pathname.value
+    pathname = ctypes.create_string_buffer(100) # TODO: Is this ok?
+    iokit.IOObjectGetClass(
+        device,
+        ctypes.byref(pathname)
+    )
 
+    return pathname.value
 
 def GetParentDeviceByType(device, parent_type):
     """ Find the first parent of a device that implements the parent_type
@@ -148,30 +133,32 @@ def GetParentDeviceByType(device, parent_type):
         @return Pointer to the parent type, or None if it was not found.
     """
     # First, try to walk up the IOService tree to find a parent of this device that is a IOUSBDevice.
-    parent_type = parent_type.encode('mac_roman')
     while IORegistryEntryGetName(device) != parent_type:
         parent = ctypes.c_void_p()
         response = iokit.IORegistryEntryGetParentEntry(
-                device,
-                "IOService".encode("mac_roman"),
-                ctypes.byref(parent))
+            device,
+            "IOService".encode("mac_roman"),
+            ctypes.byref(parent)
+        )
+
         # If we weren't able to find a parent for the device, we're done.
         if response != 0:
             return None
-        device = parent
-    return device
 
+        device = parent
+
+    return device
 
 def GetIOServicesByType(service_type):
     """
-    returns iterator over specified service_type
     """
     serial_port_iterator = ctypes.c_void_p()
 
-    iokit.IOServiceGetMatchingServices(
-            kIOMasterPortDefault,
-            iokit.IOServiceMatching(service_type.encode('mac_roman')),
-            ctypes.byref(serial_port_iterator))
+    response = iokit.IOServiceGetMatchingServices(
+        kIOMasterPortDefault,
+        iokit.IOServiceMatching(service_type),
+        ctypes.byref(serial_port_iterator)
+    )
 
     services = []
     while iokit.IOIteratorIsValid(serial_port_iterator):
@@ -179,81 +166,43 @@ def GetIOServicesByType(service_type):
         if not service:
             break
         services.append(service)
+
     iokit.IOObjectRelease(serial_port_iterator)
+
     return services
-
-
-def location_to_string(locationID):
-    """
-    helper to calculate port and bus number from locationID
-    """
-    loc = ['{}-'.format(locationID >> 24)]
-    while locationID & 0xf00000:
-        if len(loc) > 1:
-            loc.append('.')
-        loc.append('{}'.format((locationID >> 20) & 0xf))
-        locationID <<= 4
-    return ''.join(loc)
-
-
-class SuitableSerialInterface(object):
-    pass
-
-
-def scan_interfaces():
-    """
-    helper function to scan USB interfaces
-    returns a list of SuitableSerialInterface objects with name and id attributes
-    """
-    interfaces = []
-    for service in GetIOServicesByType('IOSerialBSDClient'):
-        device = get_string_property(service, "IOCalloutDevice")
-        if device:
-            usb_device = GetParentDeviceByType(service, "IOUSBInterface")
-            if usb_device:
-                name = get_string_property(usb_device, "USB Interface Name") or None
-                locationID = get_int_property(usb_device, "locationID", kCFNumberSInt32Type) or ''
-                i = SuitableSerialInterface()
-                i.id = locationID
-                i.name = name
-                interfaces.append(i)
-    return interfaces
-
-
-def search_for_locationID_in_interfaces(serial_interfaces, locationID):
-    for interface in serial_interfaces:
-        if (interface.id == locationID):
-            return interface.name
-    return None
-
 
 def comports():
     # Scan for all iokit serial ports
     services = GetIOServicesByType('IOSerialBSDClient')
+
     ports = []
-    serial_interfaces = scan_interfaces()
     for service in services:
+        info = []
+
         # First, add the callout device file.
-        device = get_string_property(service, "IOCalloutDevice")
-        if device:
-            info = list_ports_common.ListPortInfo(device)
-            # If the serial port is implemented by IOUSBDevice
-            usb_device = GetParentDeviceByType(service, "IOUSBDevice")
-            if usb_device:
-                # fetch some useful informations from properties
-                info.vid = get_int_property(usb_device, "idVendor", kCFNumberSInt16Type)
-                info.pid = get_int_property(usb_device, "idProduct", kCFNumberSInt16Type)
-                info.serial_number = get_string_property(usb_device, "USB Serial Number")
-                info.product = get_string_property(usb_device, "USB Product Name") or 'n/a'
-                info.manufacturer = get_string_property(usb_device, "USB Vendor Name")
-                locationID = get_int_property(usb_device, "locationID", kCFNumberSInt32Type)
-                info.location = location_to_string(locationID)
-                info.interface = search_for_locationID_in_interfaces(serial_interfaces, locationID)
-                info.apply_usb_info()
-            ports.append(info)
+        info.append(get_string_property(service, "IOCalloutDevice"))
+
+        # If the serial port is implemented by a
+        usb_device = GetParentDeviceByType(service, "IOUSBDevice")
+        if usb_device != None:
+            info.append(get_string_property(usb_device, "USB Product Name"))
+
+            info.append(
+                "USB VID:PID=%x:%x SNR=%s"%(
+                get_int_property(usb_device, "idVendor"),
+                get_int_property(usb_device, "idProduct"),
+                get_string_property(usb_device, "USB Serial Number"))
+            )
+        else:
+           info.append('n/a')
+           info.append('n/a')
+
+        ports.append(info)
+
     return ports
 
 # test
 if __name__ == '__main__':
     for port, desc, hwid in sorted(comports()):
-        print("{}: {} [{}]".format(port, desc, hwid))
+        print("%s: %s [%s]" % (port, desc, hwid))
+
