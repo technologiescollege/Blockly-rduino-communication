@@ -362,7 +362,7 @@ def openIDE():
 
         # arduino --board arduino:avr:nano:cpu=atmega168 --port /dev/ttyACM0 --upload /path/to/sketch/sketch.ino
         compileTime = datetime.now()
-        myCmd = myArduinoToolPath + myArduinoCompileExe +" "+myTempDirectory+separator+myFileName
+        myCmd = myArduinoToolPath + myArduinoUploadExe +" "+myTempDirectory+separator+myFileName
         print("\nThe shell command:\n%s\n" % myCmd)
 
         subprocess.Popen(myCmd)

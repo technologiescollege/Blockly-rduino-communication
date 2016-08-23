@@ -4,4 +4,4 @@ rem fichiers BAT et fork créés par Sébastien CANET
 SET currentpath=%~dp1
 cd %currentpath%scripts
 cls
-python.exe .\rDuino\rDuino_uploader_server.py -D COM14 -U arduino.exe -C arduino_debug.exe -T C:\Programmation\arduino\
+python.exe .\rDuino\rDuino_uploader_server.py -D COM7 -U arduino.exe -C arduino_debug.exe -T C:\Programmation\arduino\
