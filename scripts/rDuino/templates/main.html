@@ -9,40 +9,34 @@
   
 <script type=text/javascript>
 var timer1 = null
-var timer2 = null
+
 
 function updateResult() {
   $.getJSON('/get_result', function(data) {
 //        $("#section_result").text("toto " + data.result);
         document.getElementById('section_result').innerHTML = "Date : " + data.date + "<br/>Heure de la dernière exécution : " + data.compileTime +  "<br/><br/>Resultat : " + data.result;
+        document.getElementById('section_error').innerHTML = "Message d'erreur : " + data.error + "<br/>The return code: " + data.returnCode
         
         //document.getElementById('section_indicator').innerHTML = data.returnCode;
         
-        if (data.returnCode <= -1) {
-            document.body.style.backgroundColor = '#CC3300';
-            document.getElementById("section_indicator").style.backgroundColor = "red";
+
+        if (data.returnCode >= 999) {
+            document.body.style.backgroundColor = 'gray';
+            document.getElementById("section_indicator").style.backgroundColor = "black";
         }
-        else {
-            if (data.returnCode >= 1) {
+        else if (data.returnCode == 0) {
                 document.body.style.backgroundColor = '#336600';
                 document.getElementById("section_indicator").style.backgroundColor = "green";
             }
-            else {
-                document.body.style.backgroundColor = 'gray';
-                document.getElementById("section_indicator").style.backgroundColor = "black";
-            }
+        else {
+            document.body.style.backgroundColor = '#CC3300';
+            document.getElementById("section_indicator").style.backgroundColor = "red";
         }
     });
 }
-function updateError() {
-  $.getJSON('/get_error', function(data){
-        document.getElementById('section_error').innerHTML = "Message d'erreur : " + data.error
-//        $("#section_error").text("Message d'erreur :<br/><br/> " + data.error);
-  })
-}
-  
+
 timer1 = setInterval('updateResult()', 1000 * 1);
-timer2 = setInterval('updateError()', 1000 * 1);
+
 </script>
 
 </head>
@@ -50,7 +44,7 @@ timer2 = setInterval('updateError()', 1000 * 1);
 
 <div class="header">
 <h1>rDuino Compiler Uploader Server</h1>
-Send an HTTP request, including the code, to http://127.0.0.1:{{ thePort }}/ to compile and upload a code to the Arduino target.
+Send an HTTP request, including the code, to http://127.0.0.1:{{ thePort }}/upload to compile and upload a code to the Arduino target.
 </div>
 
 <div class="row">
