@@ -1,9 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="static/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>rDuino Compiler Uploader Server</title>
+<link rel="stylesheet" href="static/styles.css" type="text/css" />
+<link rel="stylesheet" href="static/styles_nbr.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   
@@ -15,7 +27,7 @@ function updateResult() {
   $.getJSON('/get_result', function(data) {
 //        $("#section_result").text("toto " + data.result);
         document.getElementById('section_result').innerHTML = "Date : " + data.date + "<br/>Heure de la dernière exécution : " + data.compileTime +  "<br/><br/>Resultat : " + data.result;
-        document.getElementById('section_error').innerHTML = "Message d'erreur : " + data.error + "<br/>The return code: " + data.returnCode
+        document.getElementById('section_error').innerHTML = "" + data.error + "<br/>The return code: " + data.returnCode
         
         //document.getElementById('section_indicator').innerHTML = data.returnCode;
         
@@ -41,90 +53,99 @@ timer1 = setInterval('updateResult()', 1000 * 1);
 
 </head>
 <body>
+		<section id="body" class="width">
+			<aside id="sidebar" class="column-left">
+                <header>
+                    <h1><a href="#">rDuino</a></h1>
+                    <h2>Compiler Uploader Server</h2>
 
-<div class="header">
-<h1>rDuino Compiler Uploader Server</h1>
-Send an HTTP request, including the code, to http://127.0.0.1:{{ thePort }}/upload to compile and upload a code to the Arduino target.
-</div>
-
-<div class="row">
-
-<!--  NO MENU
-<div class="col-3 col-s-3 menu" id="buttonList">
-<ul>
-    <a href="{{ url_for("install_board") }}" id="install_board"><li>Add a board to the compiler</li></a>
-    <a href="{{ url_for("install_library") }}" id="install_library"><li>Add a library to the compiler</li></a>
-</ul>
-</div>
--->
-
-<!--    return render_template('main.html', theBoardList=boardList, theBoard=myBoard, theTargetList=targetList, theTarget=myTarget, theTempFile=myTempDirectory+separator+myFileName) -->
-
-<div class="col-9 col-s-9">
-<h1>The board</h1>
-<div class="section">
-
-<form action="{{url_for("set_board")}}" method="POST">
-Available boards:<select name="board" id="board" onchange="this.form.submit()">
-  {% for board in theBoardList %}
-    {% if board == theBoard %}
-        <option value="{{board}}" selected>{{board}}</option>
-    {% else %}
-        <option value="{{board}}">{{board}}</option>
-    {% endif %}
-  {% endfor %}  
-</select>
-</form>
-The selected board type : {{ theBoard }}
-</div>
-
-<h1>The target port</h1>
-<div class="section">
-<form action="{{url_for("set_target")}}" method="POST">
-<select name="target" id="target" onchange="this.form.submit()">
-  {% for target in theTargetList %}
-    {% if target == theTarget %}
-        <option value="{{target}}" selected>{{target}}</option>
-    {% else %}
-        <option value="{{target}}">{{target}}</option>
-    {% endif %}
-  {% endfor %}  
-</select>
-</form>
-The selected port to communicate with the target : {{ theTarget }}
-</div>
-
-<h1>The options</h1>
-<div class="section">
-<form action="{{url_for("set_option")}}" method="POST">
-<select name="option" id="option" onchange="this.form.submit()">
-  {% for option in theOptionList %}
-    {% if option == theOption%}
-        <option value="{{option}}" selected>{{option}}</option>
-    {% else %}
-        <option value="{{option}}">{{option}}</option>
-    {% endif %}
-  {% endfor %}  
-</select>
-</form>
-The selected options : {{ theOption }}
-</div>
+                </header>
+<!--  NO MENU  -->               
+                <nav id="mainnav">
+                    <ul>
+<li class="selected-item"><a href="{{ url_for("main_page") }}">Home</a></li>
+<li><a href="{{ url_for("install_board") }}" id="install_board">Add a board to the compiler</a></li>
+<li><a href="{{ url_for("install_library") }}" id="install_library">Add a library to the compiler</a></li>
+                    </ul>
+                </nav>
+<!--  -->                
+			</aside>
+			<section id="content" class="column-right">
 
 
-<h1>The temporary file containg the code</h1>
-<div class="section">{{ theTempFile }}</div>
 
-<h1>The result of the last command</h1>
-<div class="section_result"><span id=section_result>{{ result|safe }}</span></div>
-<div class="section_error"><span id=section_error>{{ error|safe }}</span></div>
-<div class="section_indicator" id=section_indicator></div>
-</div>
+            
+	    <article>
+            Send an HTTP request, including the code, to http://127.0.0.1:{{ thePort }}/upload to compile and upload a code to the Arduino target.<br/>        
+			<h3>The board</h3>
+				<fieldset>
+                    <form action="{{url_for("set_board")}}" method="POST">
+                    Available boards:<select name="board" id="board" onchange="this.form.submit()">
+                      {% for board in theBoardList %}
+                        {% if board == theBoard %}
+                            <option value="{{board}}" selected>{{board}}</option>
+                        {% else %}
+                            <option value="{{board}}">{{board}}</option>
+                        {% endif %}
+                      {% endfor %}  
+                    </select>
+                    </form>
+				</fieldset>
+                The selected board type : <font color="red">{{ theBoard }}</font> <br/>
 
-</div>
+			<h3>The serial port</h3>
+				<fieldset>
+                    <form action="{{url_for("set_target")}}" method="POST">
+                    <select name="target" id="target" onchange="this.form.submit()">
+                      {% for target in theTargetList %}
+                        {% if target == theTarget %}
+                            <option value="{{target}}" selected>{{target}}</option>
+                        {% else %}
+                            <option value="{{target}}">{{target}}</option>
+                        {% endif %}
+                      {% endfor %}  
+                    </select>
+                    </form>
+				</fieldset>
+                The selected serial port to communicate with the target : <font color="red">{{ theTarget }}</font> <br/>
+                
+			<h3>The options</h3>
+				<fieldset>
+                    <form action="{{url_for("set_option")}}" method="POST">
+                    <select name="option" id="option" onchange="this.form.submit()">
+                      {% for option in theOptionList %}
+                        {% if option == theOption%}
+                            <option value="{{option}}" selected>{{option}}</option>
+                        {% else %}
+                            <option value="{{option}}">{{option}}</option>
+                        {% endif %}
+                      {% endfor %}  
+                    </select>
+                    </form>
+				</fieldset>
+                The selected options : <font color="red">{{ theOption }}</font>
 
-<div class="footer">
-<p>(c) NBRemond - 2016</p>
-</div>
+                <h3>The result of the last command</h3>
+                <div class="section_result"><span id=section_result>{{ result|safe }}</span></div>
+                <div class="section_error"><span id=section_error>{{ error|safe }}</span></div>
+                <div class="section_indicator" id=section_indicator></div><br/>
+             
+                <h3>The temporary file containg the code</h3>
+                <code><div class="section">{{ theTempFile }}</div></code>
+
+		</article>
+
+			
+			<footer class="clear">
+				<p>(c) NBRemond - 2016 - <a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+			</footer>
+
+		</section>
+
+		<div class="clear"></div>
+
+	</section>
+
 
 </body>
 </html>

@@ -1,49 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="static/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>rDuino Compiler Uploader Server</title>
+<link rel="stylesheet" href="static/styles.css" type="text/css" />
+<link rel="stylesheet" href="static/styles_nbr.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+<script type=text/javascript>
+var timer1 = null
+
+
+function updateResult() {
+  $.getJSON('/get_result', function(data) {
+//        $("#section_result").text("toto " + data.result);
+        document.getElementById('section_result').innerHTML = "Date : " + data.date + "<br/>Heure de la dernière exécution : " + data.compileTime +  "<br/><br/>Resultat : " + data.result;
+        document.getElementById('section_error').innerHTML = "" + data.error + "<br/>The return code: " + data.returnCode
+        
+        //document.getElementById('section_indicator').innerHTML = data.returnCode;
+        
+
+        if (data.returnCode >= 999) {
+            document.body.style.backgroundColor = 'gray';
+            document.getElementById("section_indicator").style.backgroundColor = "black";
+        }
+        else if (data.returnCode == 0) {
+                document.body.style.backgroundColor = '#336600';
+                document.getElementById("section_indicator").style.backgroundColor = "green";
+            }
+        else {
+            document.body.style.backgroundColor = '#CC3300';
+            document.getElementById("section_indicator").style.backgroundColor = "red";
+        }
+    });
+}
+
+timer1 = setInterval('updateResult()', 1000 * 1);
+
+</script>
+
 </head>
 <body>
+		<section id="body" class="width">
+			<aside id="sidebar" class="column-left">
+                <header>
+                    <h1><a href="#">rDuino</a></h1>
+                    <h2>Compiler Uploader Server</h2>
 
-<div class="header">
-<h1>rDuino Compiler Uploader Server</h1>
+                </header>
+<!--  NO MENU  -->               
+                <nav id="mainnav">
+                    <ul>
+<li><a href="{{ url_for("main_page") }}">Home</a></li>
+<li><a href="{{ url_for("install_board") }}" id="install_board">Add a board to the compiler</a></li>
+<li class="selected-item"><a href="{{ url_for("install_library") }}" id="install_library">Add a library to the compiler</a></li>
+                    </ul>
+                </nav>
+<!--  -->                
+			</aside>
+			<section id="content" class="column-right">
+
+
+
+            
+	    <article>
 Install a new library in the Arduino compiler
-</div>
 
-<div class="row">
-<div class="col-3 col-s-3 menu" id="buttonList">
-<ul>
-    <a href="{{ url_for("main_page") }}" id="main"><li>Main page</li></a>
-    <a href="{{ url_for("install_board") }}" id="install_board"><li>Add a board to the compiler</li></a>
-</ul>
-</div>
+                    <h3>The library to install</h3> 
+                    <fieldset>
+                        <form action={{ url_for("install_library") }} method="POST">
+                          Enter the name of the library to add to the compiler :<br>
+                          <input type="text" name="library" value=""><br>
+                          <input type="submit" value="OK">
+                        </form>
+                    </fieldset>
+                    
+                    
+                    <h3>The result of the last command</h3>
+                    <div class="section_result"><span id=section_result>{{ result|safe }}</span></div>
+                    <div class="section_error"><span id=section_error>{{ error|safe }}</span></div>
+                    <div class="section_indicator" id=section_indicator></div>
 
-<!--    return render_template('main.html', theBoardList=boardList, theBoard=myBoard, theTargetList=targetList, theTarget=myTarget, theTempFile=myTempDirectory+separator+myFileName) -->
+                </article>
 
-<div class="col-6 col-s-9">
-<h1>The Library</h1>
-<div class="section">
+                    
+                <footer class="clear">
+                    <p>(c) NBRemond - 2016 - <a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+                </footer>
 
-<form action={{ url_for("install_library") }} method="POST">
-  Enter the name of the library to add to the compiler :<br>
-  <input type="text" name="library" value=""><br>
-  <input type="submit" value="OK">
-</form>
-</div>
+		</section>
 
+		<div class="clear"></div>
 
-<h1>The result of the last command</h1>
-<div class="section_result">{{ cmd }}:</p>{{ result|safe }}</div>
-<div class="section_error">{{ error|safe }}</div>
-</div>
+	</section>
 
-</div>
-
-<div class="footer">
-<p>(c) NBRemond - 2016</p>
-</div>
 
 </body>
-</html>
+</html>    
