@@ -50,7 +50,7 @@ myInstallLibrary = "--install-library"
 myInstallBoard = "--install-boards"
 
 myBoardOptions = "--board"
-boardList = [ "arduino:avr:uno",  "arduino:avr:mega:cpu=atmega2560"]
+boardList = [ "arduino:avr:uno",  "arduino:avr:mega:cpu=atmega2560", "arduino:avr:nano:cpu=atmega328", "arduino:avr:leonardo", "arduino:avr:micro"]
 myBoard = "arduino:avr:uno"
 
 myTargetOption = "--port"
@@ -61,15 +61,11 @@ myOption = ""
 
 if sys.platform.startswith('win'):
     separator = "\\"  # Windows
-    myTempDirectory = "scripts\\rDduino\\blockly_upload_temp"
-#    myTempDirectory = "%USER%\\Arduino\\Arduino"
-#    myTempDirectory = "D:\\Users\\s551544\\Documents\\Arduino\\Blockly_temp"
+    myTempDirectory = "scripts\\rDuino\\blockly_upload_temp"
     myFileName = "blockly_upload_temp.ino"
-    myArduinoToolPath = "D:\\Users\\s551544\\Personnel\\Tools\\Arduino\\"
-#    myArduinoToolPath = "C:\Programmation\\Arduino\\"
-#    myArduinoUploadExe = "arduino_debug.exe" # Windows
-    myArduinoUploadExe = "arduino.exe" # Windows
-    myArduinoCompileExe = "arduino.exe" # Windows
+    myArduinoToolPath = "C:\\Programmation\\Arduino\\"
+    myArduinoUploadExe = "arduino_debug.exe" # Windows
+    myArduinoCompileExe = "arduino_debug.exe" # Windows
     myTarget = "COM1"    
 elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
     separator = "/"  # Linux
