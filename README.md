@@ -14,5 +14,4 @@ How upload offline works and what it does :
 -------------------------------
 Click on picture to see video :
 
-[![](https://github.com/technologiescollege/Blockly-rduino-communication/blob/master/documentation/Blockly_comm_capture.jpg?raw=true)
-](https://vimeo.com/179961741)
+[![](https://raw.githubusercontent.com/technologiescollege/Blockly-rduino-communication/master/documentation/Blockly_upload_capture.jpg)](https://vimeo.com/179961741)
