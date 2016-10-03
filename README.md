@@ -1,7 +1,7 @@
 # Blockly@rduino-communication
 Python server to communicate with Blockly@rduino : supervision of PIN, upload to Arduino card, transfer code to IDE Arduino.
 
-Sorry but only for Windows...
+**Sorry but only for Windows 7 and later, due to use of Python3...**
 
 How supervision works and what it does :
 -------------------------------
