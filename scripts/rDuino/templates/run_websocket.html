@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>rDuino Compiler Uploader Server</title>
+<link rel="stylesheet" href="static/styles.css" type="text/css" />
+<link rel="stylesheet" href="static/styles_nbr.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+<script type=text/javascript>
+var timer1 = null
+
+
+function updateResult() {
+  $.getJSON('/get_result', function(data) {
+//        $("#section_result").text("toto " + data.result);
+        document.getElementById('section_result').innerHTML = "Date : " + data.date + "<br/>Heure de la dernière exécution : " + data.compileTime +  "<br/><br/>Resultat : " + data.result;
+        document.getElementById('section_error').innerHTML = "" + data.error + "<br/>The return code: " + data.returnCode
+        
+        //document.getElementById('section_indicator').innerHTML = data.returnCode;
+        
+
+        if (data.returnCode == "Waiting for command...") {
+            document.getElementById("section_indicator").style.backgroundColor = "black";
+        }
+        else if (data.returnCode == "In progress...") {
+            document.getElementById("section_indicator").style.backgroundColor = "yellow";
+        }
+        else if (data.returnCode == 0) {
+            document.getElementById("section_indicator").style.backgroundColor = "green";
+        }
+        else {
+            document.getElementById("section_indicator").style.backgroundColor = "red";
+        }
+    });
+}
+
+
+timer1 = setInterval('updateResult()', 1000 * 1);
+
+</script>
+
+</head>
+<body>
+		<section id="body" class="width">
+			<aside id="sidebar" class="column-left">
+                <header>
+                    <h1><a href="#">rDuino</a></h1>
+                    <h2>Compiler Uploader Server</h2>
+
+                </header>
+<!--  NO MENU  -->               
+                <nav id="mainnav">
+                    <ul>
+<li><a href="{{ url_for("main_page") }}">Home</a></li>
+<li><a href="{{ url_for("upload_hex") }}" id="upload_hex">Upload an HEX file</a></li>
+<li class="selected-item"><a href="{{ url_for("run_websocket") }}" id="run_websocket">Run the Firmata/Pymata Websocket</a></li>
+<li><a href="{{ url_for("install_board") }}" id="install_board">Add a board to the compiler</a></li>
+<li><a href="{{ url_for("install_library") }}" id="install_library">Add a library to the compiler</a></li>
+                    </ul>
+                </nav>
+<!--  -->                
+			</aside>
+			<section id="content" class="column-right">
+          	    <article>
+Run the Pymata_iot communication link to remote control your Arduino
+https://github.com/MrYsLab/pymata-aio
+
+
+
+                    <h3>Run Pymata_iot</h3>
+                    Currently available binary HEX files:
+                    {% for file in theFileList %}
+                        <li value="{{file}}">{{file}}</li>
+                    {% endfor %} 
+
+
+                    Select a file:<select name="filename" id="filename">
+                      {% for file in theFileList %}
+                        {% if file == theFile %}
+                            <option value="{{file}}" selected>{{file}}</option>
+                        {% else %}
+                            <option value="{{file}}">{{file}}</option>
+                        {% endif %}
+                      {% endfor %}  
+                    </select>
+                    <br/> The selected file : <font color="red">{{ theFile }}</font> <br/>
+                   
+                    <br/>
+                    <input type="submit" name="Upload" class="formbutton" value="Upload">
+                    
+                    </form>
+				</fieldset>
+                
+
+              
+                    <h3>The result of the last command</h3>
+                    <div class="section_result"><span id=section_result>{{ result|safe }}</span></div>
+                    <div class="section_error"><span id=section_error>{{ error|safe }}</span></div>
+                    <div class="section_indicator" id=section_indicator></div>
+
+                </article>
+
+                    
+                <footer class="clear">
+                    <p>(c) NBRemond - 2016 - <a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+                </footer>
+
+		</section>
+
+		<div class="clear"></div>
+
+	</section>
+
+
+</body>
+</html>

@@ -32,20 +32,21 @@ function updateResult() {
         //document.getElementById('section_indicator').innerHTML = data.returnCode;
         
 
-        if (data.returnCode >= 999) {
-            document.body.style.backgroundColor = 'gray';
+        if (data.returnCode == "Waiting for command...") {
             document.getElementById("section_indicator").style.backgroundColor = "black";
         }
+        else if (data.returnCode == "In progress...") {
+            document.getElementById("section_indicator").style.backgroundColor = "yellow";
+        }
         else if (data.returnCode == 0) {
-                document.body.style.backgroundColor = '#336600';
-                document.getElementById("section_indicator").style.backgroundColor = "green";
-            }
+            document.getElementById("section_indicator").style.backgroundColor = "green";
+        }
         else {
-            document.body.style.backgroundColor = '#CC3300';
             document.getElementById("section_indicator").style.backgroundColor = "red";
         }
     });
 }
+
 
 timer1 = setInterval('updateResult()', 1000 * 1);
 
@@ -64,6 +65,8 @@ timer1 = setInterval('updateResult()', 1000 * 1);
                 <nav id="mainnav">
                     <ul>
 <li><a href="{{ url_for("main_page") }}">Home</a></li>
+<li><a href="{{ url_for("upload_hex") }}" id="upload_hex">Upload an HEX file</a></li>
+<li><a href="{{ url_for("run_websocket") }}" id="run_websocket">Run the Firmata/Pymata Websocket</a></li>
 <li class="selected-item"><a href="{{ url_for("install_board") }}" id="install_board">Add a board to the compiler</a></li>
 <li><a href="{{ url_for("install_library") }}" id="install_library">Add a library to the compiler</a></li>
                     </ul>
