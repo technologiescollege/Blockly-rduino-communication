@@ -6,9 +6,10 @@
     Implements signals based on blinker if available, otherwise
     falls silently back to a noop.
 
-    :copyright: (c) 2015 by Armin Ronacher.
+    :copyright: © 2010 by the Pallets team.
     :license: BSD, see LICENSE for more details.
 """
+
 signals_available = False
 try:
     from blinker import Namespace
@@ -37,7 +38,7 @@ except ImportError:
             temporarily_connected_to = connected_to = _fail
         del _fail
 
-# The namespace for code signals.  If you are not flask code, do
+# The namespace for code signals.  If you are not Flask code, do
 # not put signals in here.  Create your own namespace instead.
 _signals = Namespace()
 
