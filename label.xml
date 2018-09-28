@@ -9,13 +9,15 @@
     </Proprietes>
   </Parametre>
   <Langues>
-    <Langue index="FR" name="FrenchLang" default="1" />
+	<Langue index="NL" name="DutchLang" default="1" />
+    <Langue index="FR" name="FrenchLang" default="0" />
     <Langue index="EN" name="EnglishLang" default="0" />
     <Langue index="ES" name="SpanishLang" default="0" />
   </Langues>
   <Labels>
     <Popup type="TComboBox">
       <Items>
+		<NL>Het bestand 'pymata_cmd.bat' bestaat niet.\Het bestand 'flash.bat' bestaat niet.\Het bestand 'rDuino_uploader.bat' bestaat niet.\Het nummer van de COM poort moet een geheel getal zijn.\Software ontwikkeld door Sébastien Canet, mei 2016 - v1.3-2.5 - februari 2017\Slecht verbonden of niet verbonden Arduino kaartje,\controleer in het Apparaatbeheer,\bereikbaar via het 'Hulpmiddelen'.\Gelieve te tonen waar de Arduino IDE staat.</NL>
         <FR>Le fichier 'pymata_cmd.bat' n'existe pas.\Le fichier 'flash.bat' n'existe pas.\Le fichier 'rDuino_uploader.bat' n'existe pas.\Le numéro du port COM doit être un entier.\Interface réalisée par Sébastien Canet, mai 2016 - v1.3-2.5 - février 2017\Carte Arduino mal connectée ou non reconnue,\vérifiez dans le gestionnaire de périphériques,\accessible depuis le menu 'Outils'.\Veuillez localiser l'EDI Arduino.</FR>
         <EN>The file 'pymata_cmd.bat' does not exist.\The file 'flash.bat' does not exist.\The file 'rDuino_uploader.bat' does not exist.\#COM port must be an integer.\Software created by Sébastien Canet, may 2016 - v1.3-2.5 - february 2017\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</EN>
 		<ES>El fichero 'pymata_cmd.bat'no existe.\El fichero 'flash.bat' no existe.\El fichero 'rDuino_uploader.bat' no existe.\El número de puerto #COM debe ser un entero.\Software creado por Sébastien Canet, mayo 2016 - v1.3-2.5 - febrero 2017\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</ES>
@@ -23,13 +25,15 @@
     </Popup>
     <InterfaceS2A type="TFenetrePrincipale">
       <Caption>
+		<NL>Blockly@rduino - Communicatiecentrum</NL>
         <FR>Blockly@rduino - communication</FR>
-        <EN>Blockly@rduino control panel</EN>
+        <EN>Blockly@rduino controle paneel</EN>
         <ES>Blockly@rduino panel de control</ES>
       </Caption>
     </InterfaceS2A>
     <Label1 type="TLabel">
       <Caption>
+		<NL>Jouw Arduino</NL>
         <FR>Votre carte Arduino</FR>
         <EN>Your Arduino card</EN>
         <ES>Su tarjeta Arduino</ES>
@@ -37,6 +41,7 @@
     </Label1>
     <Label2 type="TLabel">
       <Caption>
+		<NL>is aangesloten op</NL>
         <FR>est connectée sur</FR>
         <EN>is connected as</EN>
         <ES>esta conecatad en</ES>
@@ -44,6 +49,7 @@
     </Label2>
     <Label3 type="TLabel">
       <Caption>
+		<NL>COM poort nr</NL>
         <FR>le port COM</FR>
         <EN>COM port #</EN>
         <ES>el puerto COM</ES>
@@ -51,6 +57,7 @@
     </Label3>
     <rDuino type="TButton">
       <Caption>
+		<NL>Wacht op sketch</NL>
         <FR>Attendre le code</FR>
         <EN>Wait for sketch</EN>
         <ES>Esperar sketch</ES>
@@ -58,6 +65,7 @@
     </rDuino>
     <rDuino_visu type="TButton">
       <Caption>
+		<NL>Debug oploaden</NL>
         <FR>Visualiser le bilan</FR>
         <EN>Debug upload</EN>
         <ES>Vizualisar log</ES>
@@ -65,6 +73,7 @@
     </rDuino_visu>
     <pymata type="TButton">
       <Caption>
+		<NL>Start communicatie</NL>
         <FR>Lancer la communication</FR>
         <EN>Launch communication</EN>
         <ES>Lanzar communicacion</ES>
@@ -72,6 +81,7 @@
     </pymata>
     <blockly_launch type="TButton">
       <Caption>
+		<NL>Blockly@rduino</NL>
         <FR>Blockly@rduino</FR>
         <EN>Blockly@rduino</EN>
         <ES>Blockly@rduino</ES>
@@ -79,13 +89,23 @@
     </blockly_launch>
     <Langue1 type="TMenuItem">
       <Caption>
+		<NL>&Talen</NL>
         <FR>&Langues</FR>
         <EN>&Languages</EN>
         <ES>&Lenguajes</ES>
       </Caption>
     </Langue1>
+	<DutchLang type="TMenuItem">
+      <Caption>
+		<NL>Nederlands</NL>
+        <FR>Néerlandais</FR>
+        <EN>Dutch</EN>
+        <ES>Kweenie</ES>
+      </Caption>
+    </DutchLang>
     <FrenchLang type="TMenuItem">
       <Caption>
+		<NL>Frans</NL>
         <FR>Français</FR>
         <EN>French</EN>
         <ES>Françes</ES>
@@ -93,6 +113,7 @@
     </FrenchLang>
     <EnglishLang type="TMenuItem">
       <Caption>
+		<NL>Engels</NL>
         <FR>Anglais</FR>
         <EN>English</EN>
         <ES>Englices</ES>
@@ -100,6 +121,7 @@
     </EnglishLang>
     <SpanishLang type="TMenuItem">
       <Caption>
+		<NL>Spaans</NL>
         <FR>Espagnol</FR>
         <EN>Spanish</EN>
         <ES>Espanol</ES>
@@ -107,6 +129,7 @@
     </SpanishLang>
     <Fichier type="TMenuItem">
       <Caption>
+		<NL>&Bestand</NL>
         <FR>&Fichier</FR>
         <EN>&File</EN>
         <ES>&Archivo</ES>
@@ -114,6 +137,7 @@
     </Fichier>			
 			<Locate type="TMenuItem">
 			  <Caption>
+				<NL>&Zoek map</NL>
 				<FR>&Localiser les dossiers</FR>
 				<EN>&Locate folders</EN>
 				<ES>&Localizar carpetas</ES>
@@ -121,6 +145,7 @@
 			</Locate>
 					<LocaliserIDE type="TMenuItem">
 					  <Caption>
+						<NL>Zoek Arduino IDE</NL>
 						<FR>Localiser l'EDI Arduino</FR>
 						<EN>Locate Arduino IDE</EN>
 						<ES>Localizar Arduino IDE</ES>
@@ -128,6 +153,7 @@
 					</LocaliserIDE>
 					<Drivers type="TMenuItem">
 					  <Caption>
+						<NL>Open 'drivers' map</NL>
 						<FR>Ouvrir le dossier 'pilotes'</FR>
 						<EN>Open 'drivers' folder</EN>
 						<ES>Abrir carpeta de 'drivers'</ES>
@@ -135,6 +161,7 @@
 					</Drivers>
 			<Init type="TMenuItem">
 			  <Caption>
+				<NL>Start parameters</NL>
 				<FR>(Ré)initialiser les p&aramètres</FR>
 				<EN>Initialise p&arameters</EN>
 				<ES>Inicializar los p&arametros</ES>
@@ -142,6 +169,7 @@
 			</Init>		
 			<Quitter1 type="TMenuItem">
 			  <Caption>
+				<NL>&Sluit</NL>
 				<FR>&Quitter</FR>
 				<EN>&Quit</EN>
 				<ES>&Salir</ES>
@@ -149,6 +177,7 @@
 			</Quitter1>
     <Outils1 type="TMenuItem">
       <Caption>
+		<NL>Hulpmiddelen</NL>
         <FR>&Outils</FR>
         <EN>T&ools</EN>
         <ES>H&erramientas</ES>
@@ -156,6 +185,7 @@
     </Outils1>
 			<Gestionnairedepriphriques1 type="TMenuItem">
 			  <Caption>
+				<NL>Apparaatbeheer</NL>
 				<FR>Gestio&nnaire de périphériques</FR>
 				<EN>Device ma&nagement</EN>
 				<ES>Gestion de p&eriféricos</ES>
@@ -163,6 +193,7 @@
 			</Gestionnairedepriphriques1>
 			<InstallDriver type="TMenuItem">
 			  <Caption>
+				<NL>&Installeer drivers</NL>
 				<FR>&Installer les pilotes</FR>
 				<EN>&Install drivers</EN>
 				<ES>&Instalar drivers</ES>
@@ -170,6 +201,7 @@
 			</InstallDriver>
 					<w32 type="TMenuItem">
 					  <Caption>
+						<NL>&Windows 32bits x86</NL>
 						<FR>&Windows 32bits x86</FR>
 						<EN>&Windows 32bits x86</EN>
 						<ES>&Windows 32bits x86</ES>
@@ -177,6 +209,7 @@
 					</w32>
 					<w64 type="TMenuItem">
 					  <Caption>
+						<NL>&Windows 64bits x64</NL>
 						<FR>&Windows 64bits x64</FR>
 						<EN>&Windows 64bits x64</EN>
 						<ES>&Windows 64bits x64</ES>
@@ -184,6 +217,7 @@
 					</w64>
 			<Firmata type="TMenuItem">
 			  <Caption>
+				<NL>Upload FirmataPlus firmware naar Arduino</NL>
 				<FR>Téléverser 'FirmataPlus' dans une Arduino/Genuino</FR>
 				<EN>Upload 'FirmataPlus' in Arduino/Genuino</EN>
 				<ES>Descargar 'Firmata' en una Arduino/Genuino</ES>
@@ -191,6 +225,7 @@
 			</Firmata>	
 					<Firmata_Leonardo type="TMenuItem">
 					  <Caption>
+						<NL>Leonardo</NL>
 						<FR>Leonardo</FR>
 						<EN>Leonardo</EN>
 						<ES>Leonardo</ES>
@@ -198,6 +233,7 @@
 					</Firmata_Leonardo>
 					<Firmata_Mega type="TMenuItem">
 					  <Caption>
+						<NL>Mega (2560)</NL>
 						<FR>Mega (2560)</FR>
 						<EN>Mega (2560)</EN>
 						<ES>Mega (2560)</ES>
@@ -205,6 +241,7 @@
 					</Firmata_Mega>
 					<Firmata_Micro type="TMenuItem">
 					  <Caption>
+						<NL>Micro</NL>
 						<FR>Micro</FR>
 						<EN>Micro</EN>
 						<ES>Micro</ES>
@@ -212,6 +249,7 @@
 					</Firmata_Micro>
 					<Firmata_Nano type="TMenuItem">
 					  <Caption>
+						<NL>Nano</NL>
 						<FR>Nano</FR>
 						<EN>Nano</EN>
 						<ES>Nano</ES>
@@ -219,6 +257,7 @@
 					</Firmata_Nano>	
 					<Firmata_Uno type="TMenuItem">
 					  <Caption>
+						<NL>Uno</NL>
 						<FR>Uno</FR>
 						<EN>Uno</EN>
 						<ES>Uno</ES>
@@ -226,6 +265,7 @@
 					</Firmata_Uno>
 			<s2aio_window type="TMenuItem">
 			  <Caption>
+				<NL>Open script venster</NL>
 				<FR>Voir la fenêtre de scripts</FR>
 				<EN>Open script dialog box</EN>
 				<ES>Open script dialog box</ES>
@@ -233,6 +273,7 @@
 			</s2aio_window>	
     <Documentation1 type="TMenuItem">
       <Caption>
+		<NL>&Documentatie</NL>
         <FR>&Documentation</FR>
         <EN>&Documentation</EN>
         <ES>&Documentacion</ES>
@@ -240,6 +281,7 @@
     </Documentation1>
     <BT_supervision type="TMenuItem">
       <Caption>
+		<NL>I/0 &Controle</NL>
         <FR>&Supervision des E/S</FR>
         <EN>I/O &Supervision</EN>
         <ES>E/S supervisar</ES>
@@ -247,6 +289,7 @@
     </BT_supervision>
 	<BT_upload type="TMenuItem">
 	  <Caption>
+		<NL>Uploader</NL>
 		<FR>Téléversement</FR>
 		<EN>Uploader</EN>
 		<ES>Uploader</ES>
@@ -254,6 +297,7 @@
 	</BT_upload>
     <Aide1 type="TMenuItem">
       <Caption>
+		<NL>&Help</NL>
         <FR>&Aide</FR>
         <EN>&Help</EN>
         <ES>&Ayuda</ES>
@@ -261,6 +305,7 @@
     </Aide1>
 			<PrparerArduino1 type="TMenuItem">
 			  <Caption>
+				<NL>&1. Arduino voorbereiden</NL>
 				<FR>&1. Préparer la carte Arduino</FR>
 				<EN>&1. prepare Arduino card</EN>
 				<ES>&1. Preparar la tarjeta Arduino</ES>
@@ -268,6 +313,7 @@
 			</PrparerArduino1>
 			<Utilisation1 type="TMenuItem">
 			  <Caption>
+				<NL>&2. Gebruik van de scripts</NL>
 				<FR>&2. Utilisation des scripts</FR>
 				<EN>&2. how to use webserver</EN>
 				<ES>&2. Utilizacion de scripts</ES>
@@ -275,6 +321,7 @@
 			</Utilisation1>
 			<N4Principesdeprogrammation1 type="TMenuItem">
 			  <Caption>
+				<NL>&3. Principes van het programmeren</NL>
 				<FR>&3. Principes de programmation</FR>
 				<EN>&3. the best way to code</EN>
 				<ES>&3. Principios de programacion</ES>
@@ -282,6 +329,7 @@
 			</N4Principesdeprogrammation1>
 			<N3Mmentodescommandes1 type="TMenuItem">
 			  <Caption>
+				<NL>&4. Webserver commando's</NL>
 				<FR>&4. Mémento des commandes</FR>
 				<EN>&4. webserver command summary</EN>
 				<ES>&4. Aviso de ordenes</ES>
@@ -289,6 +337,7 @@
 			</N3Mmentodescommandes1>
 			<Links type="TMenuItem">
 			  <Caption>
+				<NL>&Links</NL>
 				<FR>&Liens</FR>
 				<EN>&Links</EN>
 				<ES>&Enlaces</ES>
@@ -296,6 +345,7 @@
 			</Links>
 					<Wiki1 type="TMenuItem">
 					  <Caption>
+						<NL>Wiki</NL>
 						<FR>Wiki</FR>
 						<EN>Wiki</EN>
 						<ES>Wiki</ES>
@@ -303,6 +353,7 @@
 					</Wiki1>
 					<A_propos type="TMenuItem">
 					  <Caption>
+						<NL>Github bestanden</NL>
 						<FR>Fichiers source</FR>
 						<EN>Github file</EN>
 						<ES>Ficheros fuente Github</ES>
@@ -310,6 +361,7 @@
 					</A_propos>
 					<SiteofficielArduino1 type="TMenuItem">
 					  <Caption>
+						<NL>Arduino officiële site</NL>	
 						<FR>Site officiel Arduino</FR>
 						<EN>Arduino official site</EN>
 						<ES>Sitio oficial de Arduino</ES>
@@ -317,6 +369,7 @@
 					</SiteofficielArduino1>
 					<Siteofficieldes2aio1 type="TMenuItem">
 					  <Caption>
+						<NL>PyMata-aio officiële site</NL>
 						<FR>Site officiel de PyMata-aio</FR>
 						<EN>PyMata-aio official site</EN>
 						<ES>Sitio oficial de PyMata-aio</ES>
@@ -324,6 +377,7 @@
 					</Siteofficieldes2aio1>
 					<SiteofficielderDuinoUploader type="TMenuItem">
 					  <Caption>
+						<NL>Officiële site van rDuino-Uploader</NL>
 						<FR>Site officiel de rDuino-Uploader</FR>
 						<EN>rDuino-Uploader official site</EN>
 						<ES>Sitio oficial de rDuino-Uploader</ES>
@@ -331,6 +385,7 @@
 					</SiteofficielderDuinoUploader>					
 					<lchargerlesdrivers1 type="TMenuItem">
 					  <Caption>
+						<NL>Download Arduino Drivers</NL>
 						<FR>Télécharger les pilotes</FR>
 						<EN>Download Arduino drivers</EN>
 						<ES>Cargar drivers de Arduino</ES>
@@ -338,6 +393,7 @@
 					</lchargerlesdrivers1>
 			<Apropos1 type="TMenuItem">
 			  <Caption>
+				<NL>Over</NL>
 				<FR>A propos</FR>
 				<EN>About</EN>
 				<ES>Acerca de</ES>
