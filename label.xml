@@ -9,25 +9,25 @@
     </Proprietes>
   </Parametre>
   <Langues>
-	<Langue index="NL" name="DutchLang" default="1" />
-    <Langue index="FR" name="FrenchLang" default="0" />
+	<Langue index="NL" name="DutchLang" default="0" />
+    <Langue index="FR" name="FrenchLang" default="1" />
     <Langue index="EN" name="EnglishLang" default="0" />
     <Langue index="ES" name="SpanishLang" default="0" />
   </Langues>
   <Labels>
     <Popup type="TComboBox">
       <Items>
-		<NL>Het bestand 'pymata_cmd.bat' bestaat niet.\Het bestand 'flash.bat' bestaat niet.\Het bestand 'rDuino_uploader.bat' bestaat niet.\Het nummer van de COM poort moet een geheel getal zijn.\Software ontwikkeld door Sébastien Canet, mei 2016 - v1.3-2.5 - februari 2017\Slecht verbonden of niet verbonden Arduino kaartje,\controleer in het Apparaatbeheer,\bereikbaar via het 'Hulpmiddelen'.\Gelieve te tonen waar de Arduino IDE staat.</NL>
-        <FR>Le fichier 'pymata_cmd.bat' n'existe pas.\Le fichier 'flash.bat' n'existe pas.\Le fichier 'rDuino_uploader.bat' n'existe pas.\Le numéro du port COM doit être un entier.\Interface réalisée par Sébastien Canet, mai 2016 - v1.3-2.5 - février 2017\Carte Arduino mal connectée ou non reconnue,\vérifiez dans le gestionnaire de périphériques,\accessible depuis le menu 'Outils'.\Veuillez localiser l'EDI Arduino.</FR>
-        <EN>The file 'pymata_cmd.bat' does not exist.\The file 'flash.bat' does not exist.\The file 'rDuino_uploader.bat' does not exist.\#COM port must be an integer.\Software created by Sébastien Canet, may 2016 - v1.3-2.5 - february 2017\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</EN>
-		<ES>El fichero 'pymata_cmd.bat'no existe.\El fichero 'flash.bat' no existe.\El fichero 'rDuino_uploader.bat' no existe.\El número de puerto #COM debe ser un entero.\Software creado por Sébastien Canet, mayo 2016 - v1.3-2.5 - febrero 2017\The Arduino card is not connected,\vérify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</ES>
+		<NL>Het bestand 'pymata_cmd.bat' bestaat niet.\Het bestand 'flash.bat' bestaat niet.\Het bestand 'rDuino_uploader.bat' bestaat niet.\Het nummer van de COM poort moet een geheel getal zijn.\Software ontwikkeld door SÃ©bastien Canet, mei 2016 - v1.3-2.5 - februari 2017\Slecht verbonden of niet verbonden Arduino kaartje,\controleer in het Apparaatbeheer,\bereikbaar via het 'Hulpmiddelen'.\Gelieve te tonen waar de Arduino IDE staat.</NL>
+        <FR>Le fichier 'pymata_cmd.bat' n'existe pas.\Le fichier 'flash.bat' n'existe pas.\Le fichier 'rDuino_uploader.bat' n'existe pas.\Le numÃ©ro du port COM doit Ãªtre un entier.\Interface rÃ©alisÃ©e par SÃ©bastien Canet, mai 2016 - v1.3-2.5 - fÃ©vrier 2017\Carte Arduino mal connectÃ©e ou non reconnue,\vÃ©rifiez dans le gestionnaire de pÃ©riphÃ©riques,\accessible depuis le menu 'Outils'.\Veuillez localiser l'EDI Arduino.</FR>
+        <EN>The file 'pymata_cmd.bat' does not exist.\The file 'flash.bat' does not exist.\The file 'rDuino_uploader.bat' does not exist.\#COM port must be an integer.\Software created by SÃ©bastien Canet, may 2016 - v1.3-2.5 - february 2017\The Arduino card is not connected,\vÃ©rify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</EN>
+		<ES>El fichero 'pymata_cmd.bat'no existe.\El fichero 'flash.bat' no existe.\El fichero 'rDuino_uploader.bat' no existe.\El nÃºmero de puerto #COM debe ser un entero.\Software creado por SÃ©bastien Canet, mayo 2016 - v1.3-2.5 - febrero 2017\The Arduino card is not connected,\vÃ©rify in the 'Device Management',\shortcut is the 'Tools' menu.\Please locate Arduino IDE.</ES>
       </Items>
     </Popup>
     <InterfaceS2A type="TFenetrePrincipale">
       <Caption>
 		<NL>Blockly@rduino - Communicatiecentrum</NL>
         <FR>Blockly@rduino - communication</FR>
-        <EN>Blockly@rduino controle paneel</EN>
+        <EN>Blockly@rduino control panel</EN>
         <ES>Blockly@rduino panel de control</ES>
       </Caption>
     </InterfaceS2A>
@@ -42,7 +42,7 @@
     <Label2 type="TLabel">
       <Caption>
 		<NL>is aangesloten op</NL>
-        <FR>est connectée sur</FR>
+        <FR>est connectÃ©e sur</FR>
         <EN>is connected as</EN>
         <ES>esta conecatad en</ES>
       </Caption>
@@ -98,7 +98,7 @@
 	<DutchLang type="TMenuItem">
       <Caption>
 		<NL>Nederlands</NL>
-        <FR>Néerlandais</FR>
+        <FR>NÃ©erlandais</FR>
         <EN>Dutch</EN>
         <ES>Kweenie</ES>
       </Caption>
@@ -106,9 +106,9 @@
     <FrenchLang type="TMenuItem">
       <Caption>
 		<NL>Frans</NL>
-        <FR>Français</FR>
+        <FR>FranÃ§ais</FR>
         <EN>French</EN>
-        <ES>Françes</ES>
+        <ES>FranÃ§es</ES>
       </Caption>
     </FrenchLang>
     <EnglishLang type="TMenuItem">
@@ -162,7 +162,7 @@
 			<Init type="TMenuItem">
 			  <Caption>
 				<NL>Start parameters</NL>
-				<FR>(Ré)initialiser les p&aramètres</FR>
+				<FR>(RÃ©)initialiser les p&aramÃ¨tres</FR>
 				<EN>Initialise p&arameters</EN>
 				<ES>Inicializar los p&arametros</ES>
 			  </Caption>
@@ -186,9 +186,9 @@
 			<Gestionnairedepriphriques1 type="TMenuItem">
 			  <Caption>
 				<NL>Apparaatbeheer</NL>
-				<FR>Gestio&nnaire de périphériques</FR>
+				<FR>Gestio&nnaire de pÃ©riphÃ©riques</FR>
 				<EN>Device ma&nagement</EN>
-				<ES>Gestion de p&eriféricos</ES>
+				<ES>Gestion de p&erifÃ©ricos</ES>
 			  </Caption>
 			</Gestionnairedepriphriques1>
 			<InstallDriver type="TMenuItem">
@@ -218,7 +218,7 @@
 			<Firmata type="TMenuItem">
 			  <Caption>
 				<NL>Upload FirmataPlus firmware naar Arduino</NL>
-				<FR>Téléverser 'FirmataPlus' dans une Arduino/Genuino</FR>
+				<FR>TÃ©lÃ©verser 'FirmataPlus' dans une Arduino/Genuino</FR>
 				<EN>Upload 'FirmataPlus' in Arduino/Genuino</EN>
 				<ES>Descargar 'Firmata' en una Arduino/Genuino</ES>
 			  </Caption>
@@ -266,7 +266,7 @@
 			<s2aio_window type="TMenuItem">
 			  <Caption>
 				<NL>Open script venster</NL>
-				<FR>Voir la fenêtre de scripts</FR>
+				<FR>Voir la fenÃªtre de scripts</FR>
 				<EN>Open script dialog box</EN>
 				<ES>Open script dialog box</ES>
 			  </Caption>
@@ -290,7 +290,7 @@
 	<BT_upload type="TMenuItem">
 	  <Caption>
 		<NL>Uploader</NL>
-		<FR>Téléversement</FR>
+		<FR>TÃ©lÃ©versement</FR>
 		<EN>Uploader</EN>
 		<ES>Uploader</ES>
 	  </Caption>
@@ -306,7 +306,7 @@
 			<PrparerArduino1 type="TMenuItem">
 			  <Caption>
 				<NL>&1. Arduino voorbereiden</NL>
-				<FR>&1. Préparer la carte Arduino</FR>
+				<FR>&1. PrÃ©parer la carte Arduino</FR>
 				<EN>&1. prepare Arduino card</EN>
 				<ES>&1. Preparar la tarjeta Arduino</ES>
 			  </Caption>
@@ -330,7 +330,7 @@
 			<N3Mmentodescommandes1 type="TMenuItem">
 			  <Caption>
 				<NL>&4. Webserver commando's</NL>
-				<FR>&4. Mémento des commandes</FR>
+				<FR>&4. MÃ©mento des commandes</FR>
 				<EN>&4. webserver command summary</EN>
 				<ES>&4. Aviso de ordenes</ES>
 			  </Caption>
@@ -361,7 +361,7 @@
 					</A_propos>
 					<SiteofficielArduino1 type="TMenuItem">
 					  <Caption>
-						<NL>Arduino officiële site</NL>	
+						<NL>Arduino officiÃ«le site</NL>	
 						<FR>Site officiel Arduino</FR>
 						<EN>Arduino official site</EN>
 						<ES>Sitio oficial de Arduino</ES>
@@ -369,7 +369,7 @@
 					</SiteofficielArduino1>
 					<Siteofficieldes2aio1 type="TMenuItem">
 					  <Caption>
-						<NL>PyMata-aio officiële site</NL>
+						<NL>PyMata-aio officiÃ«le site</NL>
 						<FR>Site officiel de PyMata-aio</FR>
 						<EN>PyMata-aio official site</EN>
 						<ES>Sitio oficial de PyMata-aio</ES>
@@ -377,7 +377,7 @@
 					</Siteofficieldes2aio1>
 					<SiteofficielderDuinoUploader type="TMenuItem">
 					  <Caption>
-						<NL>Officiële site van rDuino-Uploader</NL>
+						<NL>OfficiÃ«le site van rDuino-Uploader</NL>
 						<FR>Site officiel de rDuino-Uploader</FR>
 						<EN>rDuino-Uploader official site</EN>
 						<ES>Sitio oficial de rDuino-Uploader</ES>
@@ -386,7 +386,7 @@
 					<lchargerlesdrivers1 type="TMenuItem">
 					  <Caption>
 						<NL>Download Arduino Drivers</NL>
-						<FR>Télécharger les pilotes</FR>
+						<FR>TÃ©lÃ©charger les pilotes</FR>
 						<EN>Download Arduino drivers</EN>
 						<ES>Cargar drivers de Arduino</ES>
 					  </Caption>
