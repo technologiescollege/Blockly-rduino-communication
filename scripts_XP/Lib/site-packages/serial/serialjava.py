@@ -1,14 +1,13 @@
 #!jython
 #
-# Backend Jython with JavaComm
+# Python Serial Port Extension for Win32, Linux, BSD, Jython
+# module for serial IO for Jython and JavaComm
+# see __init__.py
 #
-# This file is part of pySerial. https://github.com/pyserial/pyserial
-# (C) 2002-2015 Chris Liechti <cliechti@gmx.net>
-#
-# SPDX-License-Identifier:    BSD-3-Clause
+# (C) 2002-2008 Chris Liechti <cliechti@gmx.net>
+# this is distributed under a free software license, see license.txt
 
 from serial.serialutil import *
-
 
 def my_import(name):
     mod = __import__(name)
@@ -34,8 +33,8 @@ def detect_java_comm(names):
 # http://mho.republika.pl/java/comm/
 
 comm = detect_java_comm([
-    'javax.comm',  # Sun/IBM
-    'gnu.io',      # RXTX
+    'javax.comm', # Sun/IBM
+    'gnu.io',     # RXTX
 ])
 
 
@@ -50,20 +49,16 @@ def device(portnumber):
     return ports[portnumber].getName()
 
 
-class Serial(SerialBase):
-    """\
-    Serial port class, implemented with Java Communications API and
-    thus usable with jython and the appropriate java extension.
-    """
+class JavaSerial(SerialBase):
+    """Serial port class, implemented with Java Communications API and
+       thus usable with jython and the appropriate java extension."""
 
     def open(self):
-        """\
-        Open port with current settings. This may throw a SerialException
-        if the port cannot be opened.
-        """
+        """Open port with current settings. This may throw a SerialException
+           if the port cannot be opened."""
         if self._port is None:
             raise SerialException("Port must be configured before it can be used.")
-        if self.is_open:
+        if self._isOpen:
             raise SerialException("Port is already open.")
         if type(self._port) == type(''):      # strings are taken directly
             portId = comm.CommPortIdentifier.getPortIdentifier(self._port)
@@ -77,7 +72,7 @@ class Serial(SerialBase):
         self._reconfigurePort()
         self._instream = self.sPort.getInputStream()
         self._outstream = self.sPort.getOutputStream()
-        self.is_open = True
+        self._isOpen = True
 
     def _reconfigurePort(self):
         """Set communication parameters on opened port."""
@@ -98,8 +93,8 @@ class Serial(SerialBase):
 
         if self._stopbits == STOPBITS_ONE:
             jstopbits = comm.SerialPort.STOPBITS_1
-        elif self._stopbits == STOPBITS_ONE_POINT_FIVE:
-            jstopbits = comm.SerialPort.STOPBITS_1_5
+        elif stopbits == STOPBITS_ONE_POINT_FIVE:
+            self._jstopbits = comm.SerialPort.STOPBITS_1_5
         elif self._stopbits == STOPBITS_TWO:
             jstopbits = comm.SerialPort.STOPBITS_2
         else:
@@ -120,47 +115,45 @@ class Serial(SerialBase):
 
         jflowin = jflowout = 0
         if self._rtscts:
-            jflowin |= comm.SerialPort.FLOWCONTROL_RTSCTS_IN
-            jflowout |= comm.SerialPort.FLOWCONTROL_RTSCTS_OUT
+            jflowin  |=  comm.SerialPort.FLOWCONTROL_RTSCTS_IN
+            jflowout |=  comm.SerialPort.FLOWCONTROL_RTSCTS_OUT
         if self._xonxoff:
-            jflowin |= comm.SerialPort.FLOWCONTROL_XONXOFF_IN
-            jflowout |= comm.SerialPort.FLOWCONTROL_XONXOFF_OUT
+            jflowin  |=  comm.SerialPort.FLOWCONTROL_XONXOFF_IN
+            jflowout |=  comm.SerialPort.FLOWCONTROL_XONXOFF_OUT
 
         self.sPort.setSerialPortParams(self._baudrate, jdatabits, jstopbits, jparity)
         self.sPort.setFlowControlMode(jflowin | jflowout)
 
         if self._timeout >= 0:
-            self.sPort.enableReceiveTimeout(int(self._timeout*1000))
+            self.sPort.enableReceiveTimeout(self._timeout*1000)
         else:
             self.sPort.disableReceiveTimeout()
 
     def close(self):
         """Close port"""
-        if self.is_open:
+        if self._isOpen:
             if self.sPort:
                 self._instream.close()
                 self._outstream.close()
                 self.sPort.close()
                 self.sPort = None
-            self.is_open = False
+            self._isOpen = False
+
+    def makeDeviceName(self, port):
+        return device(port)
 
     #  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
-    @property
-    def in_waiting(self):
+    def inWaiting(self):
         """Return the number of characters currently in the input buffer."""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         return self._instream.available()
 
     def read(self, size=1):
-        """\
-        Read size bytes from the serial port. If a timeout is set it may
-        return less characters as requested. With no timeout it will block
-        until the requested number of bytes is read.
-        """
-        if not self.sPort:
-            raise portNotOpenError
+        """Read size bytes from the serial port. If a timeout is set it may
+           return less characters as requested. With no timeout it will block
+           until the requested number of bytes is read."""
+        if not self.sPort: raise portNotOpenError
         read = bytearray()
         if size > 0:
             while len(read) < size:
@@ -174,76 +167,96 @@ class Serial(SerialBase):
 
     def write(self, data):
         """Output the given string over the serial port."""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         if not isinstance(data, (bytes, bytearray)):
             raise TypeError('expected %s or bytearray, got %s' % (bytes, type(data)))
         self._outstream.write(data)
         return len(data)
 
-    def reset_input_buffer(self):
+    def flushInput(self):
         """Clear input buffer, discarding all that is in the buffer."""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         self._instream.skip(self._instream.available())
 
-    def reset_output_buffer(self):
-        """\
-        Clear output buffer, aborting the current output and
-        discarding all that is in the buffer.
-        """
-        if not self.sPort:
-            raise portNotOpenError
+    def flushOutput(self):
+        """Clear output buffer, aborting the current output and
+        discarding all that is in the buffer."""
+        if not self.sPort: raise portNotOpenError
         self._outstream.flush()
 
-    def send_break(self, duration=0.25):
+    def sendBreak(self, duration=0.25):
         """Send break condition. Timed, returns to idle state after given duration."""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         self.sPort.sendBreak(duration*1000.0)
 
-    def _update_break_state(self):
+    def setBreak(self, level=1):
         """Set break: Controls TXD. When active, to transmitting is possible."""
-        if self.fd is None:
-            raise portNotOpenError
-        raise SerialException("The _update_break_state function is not implemented in java.")
+        if self.fd is None: raise portNotOpenError
+        raise SerialException("The setBreak function is not implemented in java.")
 
-    def _update_rts_state(self):
+    def setRTS(self, level=1):
         """Set terminal status line: Request To Send"""
-        if not self.sPort:
-            raise portNotOpenError
-        self.sPort.setRTS(self._rts_state)
+        if not self.sPort: raise portNotOpenError
+        self.sPort.setRTS(level)
 
-    def _update_dtr_state(self):
+    def setDTR(self, level=1):
         """Set terminal status line: Data Terminal Ready"""
-        if not self.sPort:
-            raise portNotOpenError
-        self.sPort.setDTR(self._dtr_state)
+        if not self.sPort: raise portNotOpenError
+        self.sPort.setDTR(level)
 
-    @property
-    def cts(self):
+    def getCTS(self):
         """Read terminal status line: Clear To Send"""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         self.sPort.isCTS()
 
-    @property
-    def dsr(self):
+    def getDSR(self):
         """Read terminal status line: Data Set Ready"""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         self.sPort.isDSR()
 
-    @property
-    def ri(self):
+    def getRI(self):
         """Read terminal status line: Ring Indicator"""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         self.sPort.isRI()
 
-    @property
-    def cd(self):
+    def getCD(self):
         """Read terminal status line: Carrier Detect"""
-        if not self.sPort:
-            raise portNotOpenError
+        if not self.sPort: raise portNotOpenError
         self.sPort.isCD()
+
+
+# assemble Serial class with the platform specific implementation and the base
+# for file-like behavior. for Python 2.6 and newer, that provide the new I/O
+# library, derive from io.RawIOBase
+try:
+    import io
+except ImportError:
+    # classic version with our own file-like emulation
+    class Serial(JavaSerial, FileLike):
+        pass
+else:
+    # io library present
+    class Serial(JavaSerial, io.RawIOBase):
+        pass
+
+
+if __name__ == '__main__':
+    s = Serial(0,
+         baudrate=19200,        # baudrate
+         bytesize=EIGHTBITS,    # number of databits
+         parity=PARITY_EVEN,    # enable parity checking
+         stopbits=STOPBITS_ONE, # number of stopbits
+         timeout=3,             # set a timeout value, None for waiting forever
+         xonxoff=0,             # enable software flow control
+         rtscts=0,              # enable RTS/CTS flow control
+    )
+    s.setRTS(1)
+    s.setDTR(1)
+    s.flushInput()
+    s.flushOutput()
+    s.write('hello')
+    sys.stdio.write('%r\n' % s.read(5))
+    sys.stdio.write('%s\n' % s.inWaiting())
+    del s
+
+
